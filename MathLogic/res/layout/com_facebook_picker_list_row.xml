@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ViewStub
+        android:id="@+id/com_facebook_picker_profile_pic_stub"
+        android:layout_width="50.0dip"
+        android:layout_height="50.0dip"
+        android:inflatedId="@id/com_facebook_picker_image"
+        android:layout="@layout/com_facebook_picker_image" />
+
+    <TextView
+        android:id="@+id/com_facebook_picker_title"
+        android:layout_width="100.0dip"
+        android:layout_height="50.0dip"
+        android:layout_weight="1.0"
+        android:ellipsize="end"
+        android:gravity="left|center"
+        android:paddingLeft="5.0dip"
+        android:singleLine="true"
+        android:textColor="#ff000000"
+        android:textSize="18.0sp"
+        android:textStyle="bold" />
+
+    <ViewStub
+        android:id="@+id/com_facebook_picker_checkbox_stub"
+        android:layout_width="23.0dip"
+        android:layout_height="23.0dip"
+        android:layout_marginRight="10.0dip"
+        android:inflatedId="@id/com_facebook_picker_checkbox"
+        android:layout="@layout/com_facebook_picker_checkbox" />
+
+</LinearLayout>

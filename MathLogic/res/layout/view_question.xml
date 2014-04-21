@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_question"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/black" >
+
+    <TextView
+        android:id="@+id/ingame_tv_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_ingame" />
+
+    <TextView
+        android:id="@+id/ingame_tv_current_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/progress_bar_countdown_timer"
+        android:paddingRight="@dimen/padding_button_right_wrong"
+        android:paddingTop="@dimen/margin_in_button_right_wrong"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_score_ingame_size" />
+
+    <TextView
+        android:id="@+id/ingame_tv_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ingame_tv_answer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_text_ingame"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_ingame" />
+
+</RelativeLayout>

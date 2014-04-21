@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/com_facebook_picker_top_bar"
+    android:layout_width="fill_parent"
+    android:layout_height="48.0dip"
+    android:background="@drawable/com_facebook_top_background"
+    android:gravity="right" >
+
+    <Button
+        android:id="@+id/com_facebook_picker_done_button"
+        android:layout_width="wrap_content"
+        android:layout_height="48.0dip"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/com_facebook_top_button"
+        android:minWidth="55.0dip"
+        android:paddingLeft="5.0dip"
+        android:paddingRight="5.0dip"
+        android:shadowColor="#66000000"
+        android:shadowDx="1.0"
+        android:shadowDy="1.0"
+        android:shadowRadius="1.0"
+        android:textColor="#ffffffff"
+        android:textSize="14.0sp" />
+
+    <LinearLayout
+        android:id="@+id/com_facebook_picker_divider"
+        android:layout_width="1.0dip"
+        android:layout_height="fill_parent"
+        android:layout_alignLeft="@id/com_facebook_picker_done_button"
+        android:background="#40000000" />
+
+    <TextView
+        android:id="@+id/com_facebook_picker_title"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_toLeftOf="@id/com_facebook_picker_divider"
+        android:ellipsize="end"
+        android:gravity="left|center"
+        android:scaleType="center"
+        android:shadowColor="#66000000"
+        android:shadowDx="1.0"
+        android:shadowDy="1.0"
+        android:shadowRadius="1.0"
+        android:singleLine="true"
+        android:textColor="#ffffffff"
+        android:textSize="22.0sp" />
+
+</RelativeLayout>

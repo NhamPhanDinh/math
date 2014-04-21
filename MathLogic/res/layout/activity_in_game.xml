@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frame_ingame"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ViewFlipper
+        android:id="@+id/view_flipper"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_countdown_timer"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="5.0dip"
+        android:layout_gravity="top"
+        android:progressDrawable="@drawable/blue_progress_bar" />
+
+    <TextView
+        android:id="@+id/ingame_tv_current_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progress_bar_countdown_timer"
+        android:layout_gravity="top|right|center"
+        android:paddingRight="@dimen/padding_button_right_wrong"
+        android:paddingTop="@dimen/margin_in_button_right_wrong"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_score_ingame_size" />
+
+    <LinearLayout
+        android:id="@+id/ingame_button_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/height_button_right_wrong"
+        android:layout_gravity="bottom|right|center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding_button_right_wrong"
+        android:paddingLeft="@dimen/padding_button_right_wrong"
+        android:paddingRight="@dimen/padding_button_right_wrong" >
+
+        <ImageView
+            android:id="@+id/ingame_button_right"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/margin_in_button_right_wrong"
+            android:layout_weight="0.5"
+            android:src="@drawable/btn_right"
+            android:text="Correct" />
+
+        <ImageView
+            android:id="@+id/ingame_button_wrong"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="@dimen/margin_in_button_right_wrong"
+            android:layout_weight="0.5"
+            android:src="@drawable/btn_wrong"
+            android:text="Wrong" />
+    </LinearLayout>
+
+</FrameLayout>
