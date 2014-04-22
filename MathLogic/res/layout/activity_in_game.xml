@@ -16,7 +16,6 @@
         android:layout_height="5.0dip"
         android:layout_gravity="top"
         android:progressDrawable="@drawable/blue_progress_bar" />
-
     <TextView
         android:id="@+id/ingame_tv_current_score"
         android:layout_width="wrap_content"

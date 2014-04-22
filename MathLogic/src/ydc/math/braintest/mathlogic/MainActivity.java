@@ -1,20 +1,22 @@
 package ydc.math.braintest.mathlogic;
 
-import ydc.math.braintest.mathlogic.gameBasic.GameHelper;
-import ydc.math.braintest.mathlogic.gameBasic.GameHelper.GameHelperListener;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.games.Games;
 
 /**
  * Main Activity
  */
 public class MainActivity extends Activity {
+	private ImageView imgPlay;
 
 	GoogleApiClient mClient; // initialized in onCreate
 	/* ID service google play */
@@ -22,11 +24,9 @@ public class MainActivity extends Activity {
 	private String LEADBOARD_ID = "CgkIneC_vbMZEAIQAA";
 	/* Leadboard button */
 	private ImageView btnLeadBoard;
-	GameHelper mHelper;
-	private boolean DEBUG_BUILD = true;
-	private boolean GAMEHELPER_SUCCESS = false;
+	/* Rate button */
+	private ImageView btnRate;
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,29 +34,6 @@ public class MainActivity extends Activity {
 		/* get data from xml */
 		btnLeadBoard = (ImageView) findViewById(R.id.home_button_leader_board);
 		// get leadboard
-		// create game helper with all APIs (Games, Plus, AppState):
-		mHelper = new GameHelper(this, GameHelper.CLIENT_ALL);
-
-		// enable debug logs (if applicable)
-		if (DEBUG_BUILD) {
-			mHelper.enableDebugLog(true, "GameHelper");
-		}
-
-		GameHelperListener listener = new GameHelper.GameHelperListener() {
-			@Override
-			public void onSignInSucceeded() {
-				// handle sign-in succeess
-				GAMEHELPER_SUCCESS = true;
-			}
-
-			@Override
-			public void onSignInFailed() {
-				// handle sign-in failure (e.g. show Sign In button)
-				GAMEHELPER_SUCCESS = false;
-			}
-
-		};
-		mHelper.setup(listener);
 		// set click
 		btnLeadBoard.setOnClickListener(new OnClickListener() {
 
@@ -64,27 +41,42 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// sumit point
-				if (GAMEHELPER_SUCCESS) {
-					Games.Leaderboards.submitScore(mHelper.getApiClient(),
-							LEADBOARD_ID, 100);
-					startActivityForResult(Games.Leaderboards
-							.getLeaderboardIntent(mHelper.getApiClient(),
-									LEADBOARD_ID), 111);
-				}
 
 			}
 		});
-	}
+		/* Play button */
+		imgPlay = (ImageView) findViewById(R.id.home_button_start);
+		imgPlay.setOnClickListener(new OnClickListener() {
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		mHelper.onStart(this);
-	}
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,
+						PlayGameActivity.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_up,
+						R.anim.slide_in_up);
 
-	@Override
-	protected void onStop() {
-		super.onStop();
-		mHelper.onStop();
+			}
+		});
+		/* Rate button */
+		btnRate = (ImageView) findViewById(R.id.home_button_rate);
+		btnRate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Uri uri = Uri.parse("market://details?id=" + getPackageName());
+				Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+				try {
+					startActivity(goToMarket);
+				} catch (ActivityNotFoundException e) {
+					Toast.makeText(MainActivity.this,
+							"Couldn't launch the market", Toast.LENGTH_LONG)
+							.show();
+				}
+			}
+		});
+
 	}
 }
