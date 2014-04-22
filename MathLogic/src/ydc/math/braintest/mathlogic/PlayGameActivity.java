@@ -38,6 +38,7 @@ public class PlayGameActivity extends Activity {
 	private int numberresult;
 	private int score = 0;
 	private int best;
+	private int checkMath = 0;
 	Dialog dialogGameOver;
 	ProgressBar mProgressBar;
 	CountDownTimer  mCountDownTimer;
@@ -98,7 +99,14 @@ public class PlayGameActivity extends Activity {
 
 					score++;
 					textScore.setText(""+score);
-					addQuestion();
+					Random md = new Random();
+					int select = 1 + md.nextInt(3);
+					if(select == 1)
+						addQuestion();
+					else if(select == 2)
+						addSubtractionQuestion();
+					else if(select == 3)
+						addMultiplicationQuestion();
 					i=0;
 					if(check == true )
 						mCountDownTimer.cancel();
@@ -142,7 +150,8 @@ public class PlayGameActivity extends Activity {
 					    mCountDownTimer.start();
 				}
 				else{
-					mCountDownTimer.cancel();
+					if(check == true )
+						mCountDownTimer.cancel();
 					 mPlayer = MediaPlayer.create(PlayGameActivity.this,
 								R.raw.fail);
 						mPlayer.start();
@@ -186,7 +195,14 @@ public class PlayGameActivity extends Activity {
 					});
 					score++;
 					textScore.setText(""+score);
-					addQuestion();
+					Random md = new Random();
+					int select = 1 + md.nextInt(3);
+					if(select == 1)
+						addQuestion();
+					else if(select == 2)
+						addSubtractionQuestion();
+					else if(select == 3)
+						addMultiplicationQuestion();
 					i=0;
 					if(check == true )
 						mCountDownTimer.cancel();
@@ -231,7 +247,8 @@ public class PlayGameActivity extends Activity {
 					    mCountDownTimer.start();
 				}
 				else{
-					 mCountDownTimer.cancel();
+					if(check == true )
+						mCountDownTimer.cancel();
 					 mPlayer = MediaPlayer.create(PlayGameActivity.this,
 								R.raw.fail);
 						mPlayer.start();
@@ -286,6 +303,7 @@ public class PlayGameActivity extends Activity {
 	}
 	
 	public void addQuestion(){
+		checkMath = 1;
 		view = inflater.inflate( R.layout.view_question, null );
 		textQuestion = (TextView)view.findViewById(R.id.ingame_tv_question);
 		Random rand = new Random();
@@ -312,11 +330,88 @@ public class PlayGameActivity extends Activity {
 		
 	}
 	
+	public void addSubtractionQuestion(){
+		checkMath = 2;
+		view = inflater.inflate( R.layout.view_question, null );
+		textQuestion = (TextView)view.findViewById(R.id.ingame_tv_question);
+		Random rand = new Random();
+		int cl = rand.nextInt(7);
+		view.setBackgroundColor(Color.parseColor(arrayColors[cl]));		
+		number2 = 1 + rand.nextInt(15);
+		number1 = number2 + 1 + rand.nextInt(15);
+		int kq = number1 - number2;
+		nunberRandom = rand.nextInt(2);
+		if(nunberRandom  == 0){
+			numberresult = (number1 - number2);			
+		}
+		else{
+			Random rand2 = new Random();
+			if(number1 >2 && number2 >2)
+				numberresult = ( kq - 3  + rand2.nextInt(4));
+			else
+				numberresult = ( kq -1 + rand2.nextInt(4));
+		}
+		textQuestion.setText("" + number1 + "-" + number2 + "=" + numberresult );
+		flipper.addView(view);
+		flipper.showNext();
+	}
+	public void addMultiplicationQuestion(){
+		checkMath = 3;
+		view = inflater.inflate( R.layout.view_question, null );
+		textQuestion = (TextView)view.findViewById(R.id.ingame_tv_question);
+		Random rand = new Random();
+		int cl = rand.nextInt(7);
+		view.setBackgroundColor(Color.parseColor(arrayColors[cl]));		
+		number2 = 1 + rand.nextInt(9);
+		number1 =  1 + rand.nextInt(9);
+		int kq = number1 * number2;
+		nunberRandom = rand.nextInt(2);
+		if(nunberRandom  == 0){
+			numberresult = (number1*number2);			
+		}
+		else{
+			Random rand2 = new Random();
+			if(number1 >2 && number2 >2)
+				numberresult = ( kq - 3  + rand2.nextInt(4));
+			else
+				numberresult = ( kq -1 + rand2.nextInt(4));
+		}
+		textQuestion.setText("" + number1 + "x" + number2 + "=" + numberresult );
+		flipper.addView(view);
+		flipper.showNext();
+		
+	}
+	public void addDivisionQuestion(){
+		checkMath = 4;
+		
+	}
+	
 	Boolean checkKQ(){
+		if(checkMath == 1){
 		if((number1 + number2) == numberresult)
 			return true;
 		else
 			return false;
+		}
+		if(checkMath == 2){
+			if((number1 - number2) == numberresult)
+				return true;
+			else
+				return false;
+			}
+		if(checkMath == 3){
+			if((number1*number2) == numberresult)
+				return true;
+			else
+				return false;
+			}
+		if(checkMath == 4){
+			if((number1/number2) == numberresult)
+				return true;
+			else
+				return false;
+			}
+		return false;
 	}
 	
 //	public void addTogglableFragment() {	
