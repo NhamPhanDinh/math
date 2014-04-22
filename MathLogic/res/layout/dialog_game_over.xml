@@ -30,6 +30,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+             android:textColor="@android:color/white"
             android:text="Score:"
             android:textSize="@dimen/text_best_score_size" />
 
@@ -38,6 +39,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+             android:textColor="@android:color/white"
             android:paddingBottom="@dimen/padding_game_over_top"
             android:paddingTop="@dimen/padding_best_score"
             android:text="Best:"
