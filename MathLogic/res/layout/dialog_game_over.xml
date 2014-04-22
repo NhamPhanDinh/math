@@ -2,7 +2,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#6495ED" >
+    android:background="@color/game_over_background" >
+
+    <LinearLayout
+        android:id="@+id/info_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_button"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_game_over"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/padding_game_over_bottom"
+            android:paddingLeft="@dimen/padding_game_over_left_right"
+            android:paddingRight="@dimen/padding_game_over_left_right"
+            android:paddingTop="@dimen/padding_game_over_top"
+            android:text="Game Over"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_game_over_size" />
+
+        <TextView
+            android:id="@id/tv_score"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+             android:textColor="@android:color/white"
+            android:text="Score:"
+            android:textSize="@dimen/text_best_score_size" />
+
+        <TextView
+            android:id="@+id/tv_best_score"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+             android:textColor="@android:color/white"
+            android:paddingBottom="@dimen/padding_game_over_top"
+            android:paddingTop="@dimen/padding_best_score"
+            android:text="Best:"
+            android:textSize="@dimen/text_best_score_size" />
+        <TextView
+            android:id="@+id/tv_game_mode"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+             android:textColor="@android:color/white"
+            android:paddingBottom="@dimen/padding_game_over_top"
+            android:paddingTop="@dimen/padding_best_score"
+            android:text="Mode:"
+            android:textSize="@dimen/text_best_score_size" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/button_layout"
@@ -55,61 +107,5 @@
         android:background="@android:color/black"
         android:gravity="center_horizontal"
         android:visibility="invisible" />
-
-    <LinearLayout
-        android:id="@+id/info_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/button_layout"
-        android:background="@drawable/rounded_button"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/tv_game_over"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingBottom="@dimen/padding_game_over_bottom"
-            android:paddingLeft="@dimen/padding_game_over_left_right"
-            android:paddingRight="@dimen/padding_game_over_left_right"
-            android:paddingTop="@dimen/padding_game_over_top"
-            android:text="Game Over"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_game_over_size" />
-
-        <TextView
-            android:id="@id/tv_score"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Score:"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_best_score_size" />
-
-        <TextView
-            android:id="@+id/tv_best_score"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingBottom="@dimen/padding_game_over_top"
-            android:paddingTop="@dimen/padding_best_score"
-            android:text="Best:"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_best_score_size" />
-
-        <TextView
-            android:id="@+id/tv_game_mode"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingBottom="@dimen/padding_game_over_top"
-            android:paddingTop="@dimen/padding_best_score"
-            android:text="Mode:"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_best_score_size" />
-    </LinearLayout>
 
 </RelativeLayout>
