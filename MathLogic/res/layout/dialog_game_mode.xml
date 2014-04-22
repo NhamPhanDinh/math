@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#00aaee" >
+
+    <TextView
+        android:id="@+id/text_game_mode"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/divider"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="112.0dip"
+        android:gravity="center_horizontal"
+        android:text="@string/game_mode"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_home_app_name" />
+
+    <Button
+        android:id="@+id/easy_game_mode"
+        android:layout_width="200dp"
+        android:background="@drawable/button"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="120dp"
+        android:text="@string/game_mode_easy" />
+
+    <Button
+        android:id="@+id/hard_game_mode"
+         android:layout_width="200dp"
+         android:background="@drawable/button"
+        android:layout_height="wrap_content"
+         android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/easy_game_mode"
+        android:text="@string/game_mode_hard" />
+
+</RelativeLayout>

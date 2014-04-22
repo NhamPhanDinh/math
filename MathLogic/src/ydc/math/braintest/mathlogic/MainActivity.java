@@ -2,11 +2,16 @@ package ydc.math.braintest.mathlogic;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import ydc.math.braintest.mathlogic.ultis.Constance;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,6 +22,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
  */
 public class MainActivity extends Activity {
 	private ImageView imgPlay;
+	Dialog dialogGameMode;
 
 	GoogleApiClient mClient; // initialized in onCreate
 	/* ID service google play */
@@ -50,13 +56,40 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				// TODO Auto-generated method stub			
+				dialogGameMode.show();
+
+			}
+		});
+		
+		dialogGameMode = new Dialog(this);
+		dialogGameMode.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialogGameMode.setContentView(R.layout.dialog_game_mode);
+		//dialogGameMode.setTitle("Select game Mode");
+		Button easyMode = (Button)dialogGameMode.findViewById(R.id.easy_game_mode);
+		Button hardMode = (Button)dialogGameMode.findViewById(R.id.hard_game_mode);
+		easyMode.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Constance.checkMode = 1;
 				Intent intent = new Intent(MainActivity.this,
 						PlayGameActivity.class);
 				startActivity(intent);
-				overridePendingTransition(R.anim.slide_in_up,
-						R.anim.slide_in_up);
+				 overridePendingTransition(R.anim.slide_in_up,R.anim.slide_in_up);
+			}
+		});
+		hardMode.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Constance.checkMode = 2;
+				Intent intent = new Intent(MainActivity.this,
+						PlayGameActivity.class);
+				startActivity(intent);
+				 overridePendingTransition(R.anim.slide_in_up,R.anim.slide_in_up);
 			}
 		});
 		/* Rate button */
