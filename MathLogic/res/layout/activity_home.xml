@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/home_background" >
+    android:background="#6495ED" >
 
     <RelativeLayout
         android:id="@+id/layout_ads"

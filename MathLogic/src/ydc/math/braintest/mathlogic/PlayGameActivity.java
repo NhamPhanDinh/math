@@ -41,6 +41,7 @@ public class PlayGameActivity extends Activity {
 	TextView textScore;
 	TextView overScore;
 	TextView bestScore;
+	TextView gameMode;
 	RelativeLayout layoutQuestion;
 	private int number1;
 	private int number2;
@@ -79,18 +80,16 @@ public class PlayGameActivity extends Activity {
 		Log.e("aaaaaaaaaa","bbb" + Constance.checkMode);
 		preferences = getPreferences(MODE_PRIVATE);
 		editor = preferences.edit();
-			try{
 				best_hard = preferences.getInt("bestScoreHard", -1);
-			}
-			catch (Exception e) {
+				if(best_hard == -1){
 				editor.putInt("bestScoreHard", 0);
+				editor.commit();
 				// TODO: handle exception
 			}
-			try{
-				best_easy = preferences.getInt("bestScoreEasy", -1);
-			}
-			catch (Exception e) {
+				best_easy = preferences.getInt("bestScoreEasy", -1);				
+			if(best_easy == -1) {
 				editor.putInt("bestScoreEasy", 0);
+				editor.commit();
 				// TODO: handle exception
 			}
 		score_easy = 0;
@@ -187,18 +186,22 @@ public class PlayGameActivity extends Activity {
 											if(best_easy< score_easy){
 												best_easy = score_easy;
 												editor.putInt("bestScoreEasy", best_easy);
+												editor.commit();
 											}
 											overScore.setText("Score: "+score_easy);
 											bestScore.setText("Best: "+best_easy);
+											gameMode.setText("Mode: Easy ");
 										}else{
 											best_hard = preferences.getInt("bestScoreHard", -1);
 											if(best_hard< score_hard){
 												best_hard = score_hard;
 												editor.putInt("bestScoreHard", best_hard);
+												editor.commit();
 											
 										}
 											overScore.setText("Score: "+score_hard);
 											bestScore.setText("Best: "+best_hard);
+											gameMode.setText("Mode: Hard ");
 										}
 										
 										dialogGameOver.show();
@@ -224,18 +227,23 @@ public class PlayGameActivity extends Activity {
 									if(best_easy< score_easy){
 										best_easy = score_easy;
 										editor.putInt("bestScoreEasy", best_easy);
+										editor.commit();
 									}
 									overScore.setText("Score: "+score_easy);
 									bestScore.setText("Best: "+best_easy);
+									gameMode.setText("Mode: Easy ");
+									
 								}else{
 									best_hard = preferences.getInt("bestScoreHard", -1);
 									if(best_hard< score_hard){
 										best_hard = score_hard;
 										editor.putInt("bestScoreHard", best_hard);
+										editor.commit();
 									
 								}
 									overScore.setText("Score: "+score_hard);
 									bestScore.setText("Best: "+best_hard);
+									gameMode.setText("Mode: Hard ");
 								}
 								dialogGameOver.show();
 							}
@@ -321,6 +329,7 @@ public class PlayGameActivity extends Activity {
 											}
 											overScore.setText("Score: "+score_easy);
 											bestScore.setText("Best: "+best_easy);
+											gameMode.setText("Mode: Easy ");
 										}else{
 											best_hard = preferences.getInt("bestScoreHard", -1);
 											if(best_hard< score_hard){
@@ -330,6 +339,7 @@ public class PlayGameActivity extends Activity {
 										}
 											overScore.setText("Score: "+score_hard);
 											bestScore.setText("Best: "+best_hard);
+											gameMode.setText("Mode: Hard ");
 										}
 										dialogGameOver.show();
 									}
@@ -357,6 +367,7 @@ public class PlayGameActivity extends Activity {
 									}
 									overScore.setText("Score: "+score_easy);
 									bestScore.setText("Best: "+best_easy);
+									gameMode.setText("Mode: Easy ");
 								}else{
 									best_hard = preferences.getInt("bestScoreHard", -1);
 									if(best_hard< score_hard){
@@ -366,6 +377,7 @@ public class PlayGameActivity extends Activity {
 								}
 									overScore.setText("Score: "+score_hard);
 									bestScore.setText("Best: "+best_hard);
+									gameMode.setText("Mode: Hard ");
 								}
 								dialogGameOver.show();
 							}
@@ -380,6 +392,7 @@ public class PlayGameActivity extends Activity {
 		 */
 		dialogGameOver = new Dialog(this, R.anim.slide_in_up);
 		dialogGameOver.setContentView(R.layout.dialog_game_over);
+		dialogGameOver.setCancelable(false);
 		ImageView restart = (ImageView) dialogGameOver
 				.findViewById(R.id.game_over_restart);
 		ImageView home = (ImageView) dialogGameOver
@@ -390,6 +403,8 @@ public class PlayGameActivity extends Activity {
 				.findViewById(R.id.game_over_share);
 		overScore = (TextView) dialogGameOver.findViewById(R.id.tv_score);
 		bestScore = (TextView) dialogGameOver.findViewById(R.id.tv_best_score);
+		gameMode = (TextView) dialogGameOver.findViewById(R.id.tv_game_mode);
+		
 		restart.setOnClickListener(new OnClickListener() {
 
 			@Override

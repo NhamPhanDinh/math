@@ -78,6 +78,7 @@ public class MainActivity extends Activity {
 						PlayGameActivity.class);
 				startActivity(intent);
 				 overridePendingTransition(R.anim.slide_in_up,R.anim.slide_in_up);
+				 dialogGameMode.dismiss();
 			}
 		});
 		hardMode.setOnClickListener(new OnClickListener() {
@@ -90,6 +91,7 @@ public class MainActivity extends Activity {
 						PlayGameActivity.class);
 				startActivity(intent);
 				 overridePendingTransition(R.anim.slide_in_up,R.anim.slide_in_up);
+				 dialogGameMode.dismiss();
 			}
 		});
 		/* Rate button */
