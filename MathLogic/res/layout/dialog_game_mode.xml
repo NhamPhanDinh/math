@@ -3,7 +3,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#FF4500"
+    android:background="#444444"
     android:orientation="vertical" >
 
     <TextView
@@ -11,14 +11,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_margin="20dp"
         android:text="@string/game_mode"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_home_app_name" />
+        android:textSize="30.0sp" />
 
     <Button
         android:id="@+id/easy_game_mode"
         style="@style/ButtonText"
+        android:layout_margin="15dp"
         android:background="@drawable/blue_button"
         android:text="@string/game_mode_easy" >
     </Button>
@@ -26,6 +27,7 @@
     <Button
         android:id="@+id/hard_game_mode"
         style="@style/ButtonText"
+        android:layout_margin="15dp"
         android:background="@drawable/purple_button"
         android:text="@string/game_mode_hard" >
     </Button>
