@@ -1,10 +1,23 @@
 package ydc.math.braintest.mathlogic;
 
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
+import com.google.ads.Ad;
+import com.google.ads.AdListener;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
+import com.google.ads.InterstitialAd;
+import com.google.ads.AdRequest.ErrorCode;
+
+import io.openkit.OKLeaderboard;
+import io.openkit.OKUser;
+import io.openkit.OpenKit;
+import io.openkit.leaderboards.OKLeaderboardsActivity;
 import ydc.math.braintest.mathlogic.ultis.Constance;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +28,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 
 /**
  * Main Activity
@@ -23,11 +35,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class MainActivity extends Activity {
 	private ImageView imgPlay;
 	Dialog dialogGameMode;
-
-	GoogleApiClient mClient; // initialized in onCreate
-	/* ID service google play */
-	private String APP_ID = "872812638237";
-	private String LEADBOARD_ID = "CgkIneC_vbMZEAIQAA";
+	private AdView adView;
+	private InterstitialAd interstitial;
+	// Grab your app key and secret key
+	String myAppKey = "HQzQkwvEuiIKL5sxIlhT";
+	String mySecretKey = "8MnOoMRmhKzi9inM9dU3En5mlJiLjS0MPJWVxirb";
 	/* Leadboard button */
 	private ImageView btnLeadBoard;
 	/* Rate button */
@@ -40,6 +52,59 @@ public class MainActivity extends Activity {
 		/* get data from xml */
 		btnLeadBoard = (ImageView) findViewById(R.id.home_button_leader_board);
 		// get leadboard
+		adView = (AdView) findViewById(R.id.ad);
+		adView.loadAd(new AdRequest());
+
+		// Create the interstitial.
+		interstitial = new InterstitialAd(this, "a1533d75297914b");
+
+		// Create ad request.
+		AdRequest adr = new AdRequest();
+
+		// Begin loading your interstitial.
+		interstitial.loadAd(adr);
+		// Create the interstitial.
+		interstitial = new InterstitialAd(this, "a15342a68f8942e");
+
+		// Create ad request.
+		adr = new AdRequest();
+		interstitial.setAdListener(new AdListener() {
+
+			@Override
+			public void onDismissScreen(Ad arg0) {
+				// TODO Auto-generated method stub
+				Intent launchleaderboard = OKLeaderboard.getLeaderboardIntent(MainActivity.this, 2147);
+				startActivity(launchleaderboard);
+			}
+
+			@Override
+			public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onLeaveApplication(Ad arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onPresentScreen(Ad arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onReceiveAd(Ad arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+		interstitial.loadAd(adr);
+		// Initialize OpenKit.
+		OpenKit.configure(this, myAppKey, mySecretKey);
 		// set click
 		btnLeadBoard.setOnClickListener(new OnClickListener() {
 
@@ -47,7 +112,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				// sumit point
-
+				checkUserLogin();
 			}
 		});
 		/* Play button */
@@ -56,18 +121,20 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub			
+				// TODO Auto-generated method stub
 				dialogGameMode.show();
 
 			}
 		});
-		
+
 		dialogGameMode = new Dialog(this);
 		dialogGameMode.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialogGameMode.setContentView(R.layout.dialog_game_mode);
-		//dialogGameMode.setTitle("Select game Mode");
-		Button easyMode = (Button)dialogGameMode.findViewById(R.id.easy_game_mode);
-		Button hardMode = (Button)dialogGameMode.findViewById(R.id.hard_game_mode);
+		// dialogGameMode.setTitle("Select game Mode");
+		Button easyMode = (Button) dialogGameMode
+				.findViewById(R.id.easy_game_mode);
+		Button hardMode = (Button) dialogGameMode
+				.findViewById(R.id.hard_game_mode);
 		easyMode.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -77,7 +144,8 @@ public class MainActivity extends Activity {
 				Intent intent = new Intent(MainActivity.this,
 						PlayGameActivity.class);
 				startActivity(intent);
-				 overridePendingTransition(R.anim.slide_in_up,R.anim.slide_in_up);
+				overridePendingTransition(R.anim.slide_in_up,
+						R.anim.slide_in_up);
 			}
 		});
 		hardMode.setOnClickListener(new OnClickListener() {
@@ -89,7 +157,8 @@ public class MainActivity extends Activity {
 				Intent intent = new Intent(MainActivity.this,
 						PlayGameActivity.class);
 				startActivity(intent);
-				 overridePendingTransition(R.anim.slide_in_up,R.anim.slide_in_up);
+				overridePendingTransition(R.anim.slide_in_up,
+						R.anim.slide_in_up);
 			}
 		});
 		/* Rate button */
@@ -111,5 +180,69 @@ public class MainActivity extends Activity {
 			}
 		});
 
+	}
+
+	/**
+	 * This method check user login
+	 */
+	private void checkUserLogin() {
+//		if (OpenKit.getCurrentUser() != null) {
+//			// Get the current user
+//			OKUser currentUser = OpenKit.getCurrentUser();
+
+			// Show the user's profile pic and nickname
+//			showAlertDialog(MainActivity.this, getString(R.string.app_name),
+//					"Hello " + currentUser.getUserNick()
+//							+ ". You login success. Do you want logout?");
+//		} else {
+			// Show the login form
+//			Intent launchOKLeaderboards = new Intent(MainActivity.this, OKLeaderboardsActivity.class);
+//			startActivity(launchOKLeaderboards);
+		if (interstitial.isReady()) {
+			interstitial.show();
+		} else {
+			Intent launchleaderboard = OKLeaderboard.getLeaderboardIntent(MainActivity.this, 2147);
+			startActivity(launchleaderboard);
+		}
+			
+
+//		}
+	}
+
+	/**
+	 * Show alert dialog
+	 * 
+	 * @param context
+	 * @param title
+	 * @param message
+	 * @param status
+	 */
+	@SuppressWarnings("deprecation")
+	public void showAlertDialog(final Context context, String title,
+			String message) {
+		final AlertDialog alertDialog = new AlertDialog.Builder(context)
+				.create();
+
+		// Setting Dialog Title
+		alertDialog.setTitle(title);
+		alertDialog.setCancelable(false);
+		// Setting Dialog Message
+		alertDialog.setMessage(message);
+
+		// Setting OK Button
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				alertDialog.dismiss();
+				OKUser.logoutCurrentUser(MainActivity.this);
+			}
+		});
+		alertDialog.setButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				alertDialog.dismiss();
+			}
+		});
+
+		// Showing Alert Message
+		alertDialog.show();
 	}
 }

@@ -4,6 +4,16 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    <com.google.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+        android:id="@+id/ad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="a15342a68f8942e" />
+
     <ViewFlipper
         android:id="@+id/view_flipper"
         android:layout_width="fill_parent"
@@ -16,6 +26,7 @@
         android:layout_height="5.0dip"
         android:layout_gravity="top"
         android:progressDrawable="@drawable/blue_progress_bar" />
+
     <TextView
         android:id="@+id/ingame_tv_current_score"
         android:layout_width="wrap_content"

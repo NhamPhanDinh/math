@@ -68,5 +68,6 @@
     <string name="admob_id">ca-app-pub-1358005588972491/6723431365</string>
     <string name="crittercism_id">52e5d30897c8f23efa000003</string>
     <string name="flurry_id">52e5d30897c8f23efa000003</string>
-    <string name="facebook_id">1417897108469438</string>
+    <!-- app_id is the Facebook APP ID. This is required by the Facebook SDK -->
+    <string name="fb_app_id">1416664948594760</string>
 </resources>
