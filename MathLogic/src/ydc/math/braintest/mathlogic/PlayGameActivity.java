@@ -84,6 +84,7 @@ public class PlayGameActivity extends Activity {
 	int[] numberDivi = { 2, 4, 6, 9, 12, 14, 15, 18, 20, 21, 25, 27, 28, 30,
 			32, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50 };
 	private AdView adView;
+	private boolean bCheck=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -427,6 +428,7 @@ public class PlayGameActivity extends Activity {
 				Intent intent = new Intent(PlayGameActivity.this,
 						PlayGameActivity.class);
 				startActivity(intent);
+				finish();
 				overridePendingTransition(R.anim.slide_in_up,
 						R.anim.slide_in_up);
 				dialogGameOver.cancel();
@@ -460,6 +462,7 @@ public class PlayGameActivity extends Activity {
 								@Override
 								public void onLoginDialogComplete() {
 									OKLog.v("Finished showing the OpenKit login dialog");
+									bCheck=true;
 									sumitPoint();
 //									Toast.makeText(PlayGameActivity.this,
 //											"Summit points success",
@@ -578,8 +581,15 @@ public class PlayGameActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		if (dialogGameOver.isShowing()) {
+			dialogGameOver.dismiss();
 			dialogGameOver.cancel();
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		//super.onBackPressed();
 	}
 
 	public void addQuestion() {
