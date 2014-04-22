@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
 		adView.loadAd(new AdRequest());
 
 		// Create the interstitial.
-		interstitial = new InterstitialAd(this, "a1533d75297914b");
+		interstitial = new InterstitialAd(this, "a152dc7bbaa7743");
 
 		// Create ad request.
 		AdRequest adr = new AdRequest();
@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
 		// Begin loading your interstitial.
 		interstitial.loadAd(adr);
 		// Create the interstitial.
-		interstitial = new InterstitialAd(this, "a15342a68f8942e");
+		interstitial = new InterstitialAd(this, "a152dc7bbaa7743");
 
 		// Create ad request.
 		adr = new AdRequest();

@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             ads:adSize="SMART_BANNER"
-            ads:adUnitId="a15342a68f8942e" />
+            ads:adUnitId="a152dc7bbaa7743" />
 
     <RelativeLayout
         android:id="@+id/layout_ads"

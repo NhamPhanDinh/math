@@ -9,10 +9,9 @@
         android:id="@+id/ad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center"
+         android:layout_gravity="top"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="a15342a68f8942e" />
+        ads:adUnitId="a152dc7bbaa7743" />
 
     <ViewFlipper
         android:id="@+id/view_flipper"
