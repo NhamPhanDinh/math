@@ -463,9 +463,9 @@ public class PlayGameActivity extends Activity {
 								public void onLoginDialogComplete() {
 									OKLog.v("Finished showing the OpenKit login dialog");
 									sumitPoint();
-									Toast.makeText(PlayGameActivity.this,
-											"Summit points success",
-											Toast.LENGTH_LONG).show();
+//									Toast.makeText(PlayGameActivity.this,
+//											"Summit points success",
+//											Toast.LENGTH_LONG).show();
 								}
 							});
 
