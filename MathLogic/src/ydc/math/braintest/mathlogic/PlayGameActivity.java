@@ -50,6 +50,7 @@ public class PlayGameActivity extends Activity {
 	TextView textScore;
 	TextView overScore;
 	TextView bestScore;
+	TextView gameMode;
 	RelativeLayout layoutQuestion;
 	private int number1;
 	private int number2;
@@ -93,18 +94,18 @@ public class PlayGameActivity extends Activity {
 		Log.e("aaaaaaaaaa", "bbb" + Constance.checkMode);
 		preferences = getPreferences(MODE_PRIVATE);
 		editor = preferences.edit();
-		try {
-			best_hard = preferences.getInt("bestScoreHard", -1);
-		} catch (Exception e) {
-			editor.putInt("bestScoreHard", 0);
-			// TODO: handle exception
-		}
-		try {
-			best_easy = preferences.getInt("bestScoreEasy", -1);
-		} catch (Exception e) {
-			editor.putInt("bestScoreEasy", 0);
-			// TODO: handle exception
-		}
+				best_hard = preferences.getInt("bestScoreHard", -1);
+				if(best_hard == -1){
+				editor.putInt("bestScoreHard", 0);
+				editor.commit();
+				// TODO: handle exception
+			}
+				best_easy = preferences.getInt("bestScoreEasy", -1);				
+			if(best_easy == -1) {
+				editor.putInt("bestScoreEasy", 0);
+				editor.commit();
+				// TODO: handle exception
+			}
 		score_easy = 0;
 		score_hard = 0;
 
@@ -132,8 +133,8 @@ public class PlayGameActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (checkKQ() == true) {
+				// TODO Auto-generated method stub	
+				if(checkKQ() == true){
 					mPlayer = MediaPlayer.create(PlayGameActivity.this,
 							R.raw.passed);
 					mPlayer.start();
@@ -147,130 +148,133 @@ public class PlayGameActivity extends Activity {
 
 					Random md = new Random();
 					int select = 1;
-					if (Constance.checkMode == 1) {
+					if(Constance.checkMode == 1){
 						select = 1 + md.nextInt(2);
-						score_easy++;
-						textScore.setText("" + score_easy);
-
-					} else {
+						score_easy ++;
+						textScore.setText(""+score_easy);
+					
+					}else{
 						select = 1 + md.nextInt(4);
-						score_hard++;
-						textScore.setText("" + score_hard);
+						score_hard ++;
+						textScore.setText(""+score_hard);
 					}
-					if (select == 1)
+					if(select == 1)
 						addQuestion();
-					else if (select == 2)
+					else if(select == 2)
 						addSubtractionQuestion();
-					else if (select == 3)
+					else if(select == 3)
 						addMultiplicationQuestion();
-					else if (select == 4)
+					else if(select ==4)
 						addDivisionQuestion();
-					i = 0;
-					if (check == true)
+					i=0;
+					if(check == true )
 						mCountDownTimer.cancel();
 					mProgressBar.setMax(TOTAL_TIME);
 					mProgressBar.setProgress(i);
-					mCountDownTimer = new CountDownTimer(2000, 100) {
+					   mCountDownTimer=new CountDownTimer(2000,100) {
 
-						@Override
-						public void onTick(long millisUntilFinished) {
-							check = true;
-							// Log.v("Log_tag", "Tick of Progress"+ i+
-							// millisUntilFinished);
-							i = i + 100;
-							mProgressBar.setProgress(i);
+					        @Override
+					        public void onTick(long millisUntilFinished) {
+					        	check = true;
+					            //Log.v("Log_tag", "Tick of Progress"+ i+ millisUntilFinished);
+					            i = i + 100;
+					            mProgressBar.setProgress(i);
 
-						}
+					        }
 
-						@Override
-						public void onFinish() {
-							// Do what you want
-							i = i + 100;
-							mProgressBar.setProgress(i);
-							mPlayer = MediaPlayer.create(PlayGameActivity.this,
-									R.raw.fail);
-							mPlayer.start();
-							mPlayer.setOnCompletionListener(new OnCompletionListener() {
+					        @Override
+					        public void onFinish() {
+					        //Do what you want 
+					            i = i+ 100;
+					            mProgressBar.setProgress(i);
+					            mPlayer = MediaPlayer.create(PlayGameActivity.this,
+										R.raw.fail);
+								mPlayer.start();
+								mPlayer.setOnCompletionListener(new OnCompletionListener() {
 
-								public void onCompletion(MediaPlayer mp) {
-									mPlayer.release();
-									mPlayer = null;
-									if (Constance.checkMode == 1) {
-										best_easy = preferences.getInt(
-												"bestScoreEasy", -1);
-										if (best_easy < score_easy) {
-											best_easy = score_easy;
-											editor.putInt("bestScoreEasy",
-													best_easy);
+									public void onCompletion(MediaPlayer mp) {
+										mPlayer.release();
+										mPlayer = null;
+										if(Constance.checkMode == 1){
+											best_easy = preferences.getInt("bestScoreEasy", -1);
+											if(best_easy< score_easy){
+												best_easy = score_easy;
+												editor.putInt("bestScoreEasy", best_easy);
+												editor.commit();
+											}
+											overScore.setText("Score: "+score_easy);
+											bestScore.setText("Best: "+best_easy);
+											gameMode.setText("Mode: Easy ");
+										}else{
+											best_hard = preferences.getInt("bestScoreHard", -1);
+											if(best_hard< score_hard){
+												best_hard = score_hard;
+												editor.putInt("bestScoreHard", best_hard);
+												editor.commit();
+											
 										}
-										overScore.setText("Score: "
-												+ score_easy);
-										bestScore.setText("Best: " + best_easy);
-									} else {
-										best_hard = preferences.getInt(
-												"bestScoreHard", -1);
-										if (best_hard < score_hard) {
-											best_hard = score_hard;
-											editor.putInt("bestScoreHard",
-													best_hard);
-
+											overScore.setText("Score: "+score_hard);
+											bestScore.setText("Best: "+best_hard);
+											gameMode.setText("Mode: Hard ");
 										}
-										overScore.setText("Score: "
-												+ score_hard);
-										bestScore.setText("Best: " + best_hard);
+										
+										dialogGameOver.show();
 									}
-
-									dialogGameOver.show();
-								}
-							});
-						}
-					};
-					mCountDownTimer.start();
-				} else {
-					if (check == true)
-						mCountDownTimer.cancel();
-					mPlayer = MediaPlayer.create(PlayGameActivity.this,
-							R.raw.fail);
-					mPlayer.start();
-					mPlayer.setOnCompletionListener(new OnCompletionListener() {
-
-						public void onCompletion(MediaPlayer mp) {
-							mPlayer.release();
-							mPlayer = null;
-							if (Constance.checkMode == 1) {
-								best_easy = preferences.getInt("bestScoreEasy",
-										-1);
-								if (best_easy < score_easy) {
-									best_easy = score_easy;
-									editor.putInt("bestScoreEasy", best_easy);
-								}
-								overScore.setText("Score: " + score_easy);
-								bestScore.setText("Best: " + best_easy);
-							} else {
-								best_hard = preferences.getInt("bestScoreHard",
-										-1);
-								if (best_hard < score_hard) {
-									best_hard = score_hard;
-									editor.putInt("bestScoreHard", best_hard);
-
-								}
-								overScore.setText("Score: " + score_hard);
-								bestScore.setText("Best: " + best_hard);
-							}
-							dialogGameOver.show();
-						}
-					});
+								});
+					        }
+					    };
+					    mCountDownTimer.start();
 				}
+				else{
+					if(check == true )
+						mCountDownTimer.cancel();
+					 mPlayer = MediaPlayer.create(PlayGameActivity.this,
+								R.raw.fail);
+						mPlayer.start();
+						mPlayer.setOnCompletionListener(new OnCompletionListener() {
+
+							public void onCompletion(MediaPlayer mp) {
+								mPlayer.release();
+								mPlayer = null;
+								if(Constance.checkMode == 1){
+									best_easy = preferences.getInt("bestScoreEasy", -1);
+									if(best_easy< score_easy){
+										best_easy = score_easy;
+										editor.putInt("bestScoreEasy", best_easy);
+										editor.commit();
+									}
+									overScore.setText("Score: "+score_easy);
+									bestScore.setText("Best: "+best_easy);
+									gameMode.setText("Mode: Easy ");
+									
+								}else{
+									best_hard = preferences.getInt("bestScoreHard", -1);
+									if(best_hard< score_hard){
+										best_hard = score_hard;
+										editor.putInt("bestScoreHard", best_hard);
+										editor.commit();
+									
+								}
+									overScore.setText("Score: "+score_hard);
+									bestScore.setText("Best: "+best_hard);
+									gameMode.setText("Mode: Hard ");
+								}
+								dialogGameOver.show();
+							}
+						});
+				}
+
+				
 
 			}
 		});
-
+		
 		imgWrong.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (checkKQ() == false) {
+				// TODO Auto-generated method stub			
+				if(checkKQ() == false){
 					mPlayer = MediaPlayer.create(PlayGameActivity.this,
 							R.raw.passed);
 					mPlayer.start();
@@ -283,120 +287,116 @@ public class PlayGameActivity extends Activity {
 					});
 					int select = 1;
 					Random md = new Random();
-					if (Constance.checkMode == 1) {
+					if(Constance.checkMode == 1){
 						select = 1 + md.nextInt(2);
-						score_easy++;
-						textScore.setText("" + score_easy);
-
-					} else {
+						score_easy ++;
+						textScore.setText(""+score_easy);
+					
+					}else{
 						select = 1 + md.nextInt(4);
-						score_hard++;
-						textScore.setText("" + score_hard);
+						score_hard ++;
+						textScore.setText(""+score_hard);
 					}
 
-					if (select == 1)
+					if(select == 1)
 						addQuestion();
-					else if (select == 2)
+					else if(select == 2)
 						addSubtractionQuestion();
-					else if (select == 3)
+					else if(select == 3)
 						addMultiplicationQuestion();
-					else if (select == 4)
+					else if(select ==4)
 						addDivisionQuestion();
-					i = 0;
-					if (check == true)
+					i=0;
+					if(check == true )
 						mCountDownTimer.cancel();
 					mProgressBar.setMax(TOTAL_TIME);
 					mProgressBar.setProgress(i);
-					mCountDownTimer = new CountDownTimer(2000, 100) {
+					   mCountDownTimer=new CountDownTimer(2000,100) {
 
-						@Override
-						public void onTick(long millisUntilFinished) {
-							check = true;
-							// Log.v("Log_tag", "Tick of Progress"+ i+
-							// millisUntilFinished);
-							i = i + 100;
-							mProgressBar.setProgress(i);
+					        @Override
+					        public void onTick(long millisUntilFinished) {
+					        	check = true;
+					           // Log.v("Log_tag", "Tick of Progress"+ i+ millisUntilFinished);
+					            i = i + 100;
+					            mProgressBar.setProgress(i);
 
-						}
+					        }
 
-						@Override
-						public void onFinish() {
-							// Do what you want
-							i = i + 100;
-							mProgressBar.setProgress(i);
-							mPlayer = MediaPlayer.create(PlayGameActivity.this,
-									R.raw.fail);
-							mPlayer.start();
-							mPlayer.setOnCompletionListener(new OnCompletionListener() {
+					        @Override
+					        public void onFinish() {
+					        //Do what you want 
+					            i = i+ 100;
+					            mProgressBar.setProgress(i);
+					            mPlayer = MediaPlayer.create(PlayGameActivity.this,
+										R.raw.fail);
+								mPlayer.start();
+								mPlayer.setOnCompletionListener(new OnCompletionListener() {
 
-								public void onCompletion(MediaPlayer mp) {
-									mPlayer.release();
-									mPlayer = null;
-									if (Constance.checkMode == 1) {
-										best_easy = preferences.getInt(
-												"bestScoreEasy", -1);
-										if (best_easy < score_easy) {
-											best_easy = score_easy;
-											editor.putInt("bestScoreEasy",
-													best_easy);
+									public void onCompletion(MediaPlayer mp) {
+										mPlayer.release();
+										mPlayer = null;
+										if(Constance.checkMode == 1){
+											best_easy = preferences.getInt("bestScoreEasy", -1);
+											if(best_easy< score_easy){
+												best_easy = score_easy;
+												editor.putInt("bestScoreEasy", best_easy);
+											}
+											overScore.setText("Score: "+score_easy);
+											bestScore.setText("Best: "+best_easy);
+											gameMode.setText("Mode: Easy ");
+										}else{
+											best_hard = preferences.getInt("bestScoreHard", -1);
+											if(best_hard< score_hard){
+												best_hard = score_hard;
+												editor.putInt("bestScoreHard", best_hard);
+											
 										}
-										overScore.setText("Score: "
-												+ score_easy);
-										bestScore.setText("Best: " + best_easy);
-									} else {
-										best_hard = preferences.getInt(
-												"bestScoreHard", -1);
-										if (best_hard < score_hard) {
-											best_hard = score_hard;
-											editor.putInt("bestScoreHard",
-													best_hard);
-
+											overScore.setText("Score: "+score_hard);
+											bestScore.setText("Best: "+best_hard);
+											gameMode.setText("Mode: Hard ");
 										}
-										overScore.setText("Score: "
-												+ score_hard);
-										bestScore.setText("Best: " + best_hard);
+										dialogGameOver.show();
 									}
-									dialogGameOver.show();
-								}
-							});
-						}
-					};
-					mCountDownTimer.start();
-				} else {
-					if (check == true)
+								});
+					        }
+					    };
+					    mCountDownTimer.start();
+				}
+				else{
+					if(check == true )
 						mCountDownTimer.cancel();
-					mPlayer = MediaPlayer.create(PlayGameActivity.this,
-							R.raw.fail);
-					mPlayer.start();
-					mPlayer.setOnCompletionListener(new OnCompletionListener() {
+					 mPlayer = MediaPlayer.create(PlayGameActivity.this,
+								R.raw.fail);
+						mPlayer.start();
+						mPlayer.setOnCompletionListener(new OnCompletionListener() {
 
-						public void onCompletion(MediaPlayer mp) {
-							mPlayer.release();
-							mPlayer = null;
-							if (Constance.checkMode == 1) {
-								best_easy = preferences.getInt("bestScoreEasy",
-										-1);
-								if (best_easy < score_easy) {
-									best_easy = score_easy;
-									editor.putInt("bestScoreEasy", best_easy);
+							public void onCompletion(MediaPlayer mp) {
+								mPlayer.release();
+								mPlayer = null;
+								if(Constance.checkMode == 1){
+									best_easy = preferences.getInt("bestScoreEasy", -1);
+									if(best_easy< score_easy){
+										best_easy = score_easy;
+										editor.putInt("bestScoreEasy", best_easy);
+									}
+									overScore.setText("Score: "+score_easy);
+									bestScore.setText("Best: "+best_easy);
+									gameMode.setText("Mode: Easy ");
+								}else{
+									best_hard = preferences.getInt("bestScoreHard", -1);
+									if(best_hard< score_hard){
+										best_hard = score_hard;
+										editor.putInt("bestScoreHard", best_hard);
+									
 								}
-								overScore.setText("Score: " + score_easy);
-								bestScore.setText("Best: " + best_easy);
-							} else {
-								best_hard = preferences.getInt("bestScoreHard",
-										-1);
-								if (best_hard < score_hard) {
-									best_hard = score_hard;
-									editor.putInt("bestScoreHard", best_hard);
-
+									overScore.setText("Score: "+score_hard);
+									bestScore.setText("Best: "+best_hard);
+									gameMode.setText("Mode: Hard ");
 								}
-								overScore.setText("Score: " + score_hard);
-								bestScore.setText("Best: " + best_hard);
+								dialogGameOver.show();
 							}
-							dialogGameOver.show();
-						}
-					});
-
+						});
+					
 				}
 
 			}
@@ -406,6 +406,7 @@ public class PlayGameActivity extends Activity {
 		 */
 		dialogGameOver = new Dialog(this, R.anim.slide_in_up);
 		dialogGameOver.setContentView(R.layout.dialog_game_over);
+		dialogGameOver.setCancelable(false);
 		ImageView restart = (ImageView) dialogGameOver
 				.findViewById(R.id.game_over_restart);
 		ImageView home = (ImageView) dialogGameOver
@@ -416,6 +417,8 @@ public class PlayGameActivity extends Activity {
 				.findViewById(R.id.game_over_share);
 		overScore = (TextView) dialogGameOver.findViewById(R.id.tv_score);
 		bestScore = (TextView) dialogGameOver.findViewById(R.id.tv_best_score);
+		gameMode = (TextView) dialogGameOver.findViewById(R.id.tv_game_mode);
+		
 		restart.setOnClickListener(new OnClickListener() {
 
 			@Override

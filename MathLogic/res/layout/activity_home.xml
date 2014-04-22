@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/home_background" >
+    android:background="#6495ED" >
 <com.google.ads.AdView
      android:layout_alignParentTop="true"
             xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
@@ -13,6 +13,7 @@
             android:layout_gravity="center"
             ads:adSize="SMART_BANNER"
             ads:adUnitId="a15342a68f8942e" />
+
     <RelativeLayout
         android:id="@+id/layout_ads"
         android:layout_width="fill_parent"
