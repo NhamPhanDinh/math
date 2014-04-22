@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		dialogGameMode = new Dialog(this);
+		dialogGameMode = new Dialog(this,R.style.PauseDialog);
 		dialogGameMode.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialogGameMode.setContentView(R.layout.dialog_game_mode);
 		// dialogGameMode.setTitle("Select game Mode");

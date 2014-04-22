@@ -34,6 +34,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -404,7 +405,8 @@ public class PlayGameActivity extends Activity {
 		/**
 		 * Create dialog
 		 */
-		dialogGameOver = new Dialog(this, R.anim.slide_in_up);
+		dialogGameOver = new Dialog(this,R.style.PauseDialog);
+		dialogGameOver.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialogGameOver.setContentView(R.layout.dialog_game_over);
 		dialogGameOver.setCancelable(false);
 		ImageView restart = (ImageView) dialogGameOver
