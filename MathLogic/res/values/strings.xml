@@ -60,6 +60,9 @@
     <string name="ga_trackingId">UA-42744501-10</string>
     <string name="website">"Play On Web At
 www.freakymath.com"</string>
+<string name="game_mode">Select game mode</string>
+<string name="game_mode_easy">EASY MODE</string>
+<string name="game_mode_hard">HARD MODE</string>
     <string name="app_id">545865033612</string>
     <string name="leaderboard_id">CgkIjM_dwPEPEAIQAQ</string>
     <string name="hello_world">Hello world!</string>
